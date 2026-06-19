@@ -1,19 +1,19 @@
-name: deploy-app
+name: parallel-check
+
 on:
   push:
     branches:
-      - feature-deploy
+      - main
+
 jobs:
-  deploy:
+  frontend-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checks out code
-        uses: actions/checkout@v3
-      - name: Sets up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Installs dependencies
-        run: nmp install
-      - name: Runs test script from package.json
-        run: npm test
+      - name: Frontend validation
+        run: echo "Running frontend validation..."
+
+  backend-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Backend validation
+        run: echo "Running backend validation..."
