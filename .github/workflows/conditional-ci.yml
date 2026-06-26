@@ -1,19 +1,18 @@
-name: Conditional CI Pipeline
+name: manual-workflow.yml
 
 on:
-  push:
-
+  workflow_dispatch: 
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: false
+        default: true
+        
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Run build
         run: echo "Building project..."
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    if: startsWith(github.ref, 'refs/heads/feature/') && success()
-    steps:
-      - name: Run tests
-        run: echo "Running tests on feature branch..."
